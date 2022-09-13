@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>상품상세</title>
+</head>
+<body>
+<div class="product-wrap">
+  <h3>상품상세</h3>
+  <!-- 폼태그의 메소드는 요청 메소드, 액션은 경로(디폴트는 현재 요청URL) -->
+  <form method="get" action="">
+    <div>
+      <!-- javascript == client side, Thymeleaf == server side HTML Maker -->
+      <!-- Thymeleaf 엔진이 해석하여 매칭되는 객체의 멤버를 할당하여 HTML에 덮어 씌운다. -->
+      <div><label for="">상품ID</label><input type="text" readonly name="pid" th:value="${itemForm.productId}"></div>
+      <div><label for="">상품명</label><input type="text" readonly name="pname" th:value="${itemForm.pname}"></div>
+      <div><label for="">수량</label><input type="text" readonly name="count" th:value="${itemForm.count}"></div>
+      <div><label for="">가격</label><input type="text" readonly name="price" th:value="${itemForm.price}"></div>
+      <!-- <div><label for="">상세설명</label></div>
+      <textarea name="" id="" cols="30" rows="10"></textarea> -->
+      <!-- 폼태그 내에서 버튼은 디폴트가 서밋, 바깥에서는 버튼 -->
+      <div><button type="button" id="editBtn">수정</button></div>
+      <div><button type="button" id="delBtn">삭제</button></div>
+      <div><button type="button" id="listBtn">목록</button></div>
+    </div>
+  </form>
+</div>
+<script>
+
+  (() => {  //IIFE
+
+    const pid = document.querySelector('input[name=pid]').value;
+    editBtn.addEventListener('click',e=>{
+      const url = `/products/${pid}/edit`;
+      location.href = url;
+    });
+    delBtn.addEventListener('click',e=>{
+      const url = `/products/${pid}/del`;
+      if(!confirm('삭제하시겠습니까?')) return;
+      location.href = url;
+    });
+    listBtn.addEventListener('click',e=>{
+      location.href = '/products';
+    });
+
+  })();
+
+</script>
+</body>
+</html>
